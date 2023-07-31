@@ -4,6 +4,7 @@ from typing import List
 import pandas as pd
 import numpy as np
 
+
 class SinusoidalLightCurve(AbstractLightCurve):
     """
     Note: assuming sinusoidal in magnitude instead of flux. Maybe not call LCA?
