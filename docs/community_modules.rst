@@ -1,6 +1,20 @@
-Community Modules
-========================================================================================
+Community Developed Modules
+============================
 
-.. NOTE: Please add new notebooks alphabetically
+Documentation for community developed lightcurve and activity classes.
+
+Lightcurve Classes Documentation
+--------------------------------
+
+.. NOTE: Please add new pages alphabetically
 .. toctree::
-    Sinusoidal Lightcurve <community_modules/sinusoidal>
+    Sinusoidal Lightcurve <community_modules/lightcurve/sinusoidal>
+
+
+Activity Classes Documentation
+------------------------------
+
+TBD
+
+.. NOTE: Please add new pages alphabetically
+.. toctree:: 

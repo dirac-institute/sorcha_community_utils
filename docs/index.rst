@@ -13,5 +13,5 @@ Welcome to Sorcha's community utilities documentation!
    Home page <self>
    Contributing <contributing>
    Community Modules <community_modules>
-   API Reference <autoapi/index>
    Notebooks <notebooks>
+   API Reference <autoapi/index>
