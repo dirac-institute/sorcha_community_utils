@@ -4,13 +4,17 @@ import pandas as pd
 
 from sorcha.modules.PPCalculateSimpleCometaryMagnitude import PPCalculateSimpleCometaryMagnitude
 
-# imported so that it can be registered by `update_activity_subclasses
+# imported so that it can be registered by `update_activity_subclasses`
 from sorcha_community_utils.activity.lsst_comet.lsst_comet_activity import LSSTCometActivity
 from sorcha.activity.activity_registration import update_activity_subclasses
 
 
+# TODO Remove this `skip` decorator once the config variable for which cometary activity class to use is passed through
+@pytests.mark.skip
 def test_PPCalculateApparentMagnitude_with_comet():
     from sorcha.modules.PPCalculateApparentMagnitude import PPCalculateApparentMagnitude
+
+    update_activity_subclasses()
 
     cometary_obs = pd.DataFrame(
         {
@@ -29,15 +33,15 @@ def test_PPCalculateApparentMagnitude_with_comet():
         }
     )
 
-    comet_out = PPCalculateApparentMagnitude(cometary_obs, "HG", "r", ["i-r"], ["r", "i"], "comet")
+    # TODO Check this method signature once the cometary activity class config is available.
+    comet_out = PPCalculateApparentMagnitude(
+        cometary_obs, "HG", "r", ["i-r"], ["r", "i"], "comet", "lsst_comet"
+    )
 
     assert_almost_equal(comet_out["H_filter"].values[0], 15.78, decimal=6)
     assert_almost_equal(comet_out["TrailedSourceMag"].values[0], 23.210883, decimal=6)
 
 
-# TODO: Remove `skip` decorator when updated sorcha release is available.
-# Requires and updated version of sorcha to be released to pass
-@pytest.mark.skip
 def test_PPCalculateSimpleCometaryMagnitude():
     # Updates the dictionary of available subclasses of `AbstractCometaryActivity`
     update_activity_subclasses()
