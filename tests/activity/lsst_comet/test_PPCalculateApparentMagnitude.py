@@ -10,7 +10,7 @@ from sorcha.activity.activity_registration import update_activity_subclasses
 
 
 # TODO Remove this `skip` decorator once the config variable for which cometary activity class to use is passed through
-@pytests.mark.skip
+@pytest.mark.skip
 def test_PPCalculateApparentMagnitude_with_comet():
     from sorcha.modules.PPCalculateApparentMagnitude import PPCalculateApparentMagnitude
 
