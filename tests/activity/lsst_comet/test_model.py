@@ -1,3 +1,4 @@
+import pytest
 import os
 from pathlib import Path
 import numpy as np
@@ -9,7 +10,7 @@ from sorcha_community_utils.activity.lsst_comet.model import Comet
 
 class TestComet:
     def test_afrho(self):
-        comet = Comet(R=1, afrho1=100, k=-2)
+        comet = Comet(afrho1=100, k=-2)
         g = {"rh": 2.0, "delta": 1.0, "phase": 0}
         assert np.isclose(comet.afrho(g), 100 * 2**-2)
 
@@ -25,7 +26,15 @@ class TestComet:
         rap = 1 * u.arcsec
         m0 = afrho.to_fluxd(r, rap, g, unit=u.ABmag).value
 
-        comet = Comet(R=1, afrho1=100, k=-2)
+        comet = Comet(afrho1=100, k=-2)
         m = comet.mag(g, "r", rap=rap.value)
 
         assert np.isclose(m, m0, atol=0.05)
+
+    def test_mag_raises(self):
+        comet = Comet(afrho1=100, k=-2)
+        g = {"rh": 2.0 * u.au, "delta": 1.0 * u.au, "phase": 0 * u.deg}
+        with pytest.raises(KeyError) as excinfo:
+            _ = comet.mag(geom=g, bandpass="t", rap=1)
+
+        assert "but was provided: t" in str(excinfo.value)

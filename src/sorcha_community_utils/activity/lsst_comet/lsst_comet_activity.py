@@ -12,11 +12,10 @@ class LSSTCometActivity(AbstractCometaryActivity):
     The observation dataframe provided to the ``compute``
     method should have the following columns:
 
-    * ``H_r`` - TODO
     * ``k`` - Dust falling exponential value (dust falling at rh^k)
     * ``afrho1`` - Quantity of A'Hearn et al. (1984). at perihelion (cm). See notes.
-    * ``optFilter`` - TODO
-    * ``TrailedSourceMag`` - TODO
+    * ``optFilter`` - Observing filter of the observation
+    * ``TrailedSourceMag`` - Apparent magnitude in the input filter of the comet nucleus adding up all of the counts in the trail
 
     Notes:
     ``afrho1`` - The product of albedo, filling factor of grains within the observer field
@@ -26,7 +25,7 @@ class LSSTCometActivity(AbstractCometaryActivity):
     """
 
     def __init__(
-        self, required_column_names: List[str] = ["H_r", "k", "afrho1", "optFilter", "TrailedSourceMag"]
+        self, required_column_names: List[str] = ["k", "afrho1", "optFilter", "TrailedSourceMag"]
     ) -> None:
         super().__init__(required_column_names)
 
@@ -50,11 +49,11 @@ class LSSTCometActivity(AbstractCometaryActivity):
             The photometric filters the observation is taken in (the filter
             requested that the coma magnitude be calculated for)
         rho : List[float]
-            Heliocentric distance [units TODO]
+            Heliocentric distance [units au]
         delta : List[float]
-            Distance to Earth [units TODO]
+            Distance to Earth [units au]
         alpha : List[float]
-            Description [units TODO]
+            Phase angle [units degrees]
 
         Returns
         -------
@@ -65,14 +64,17 @@ class LSSTCometActivity(AbstractCometaryActivity):
 
         self._validate_column_names(df)
 
-        com = Comet(R=df["H_r"], k=df.k, afrho1=df.afrho1)
+        com = Comet(k=df.k, afrho1=df.afrho1)
 
         # this is the geometrical data
         g = {"rh": rho, "delta": delta, "phase": alpha}
 
         # this calculates the coma magnitude in each filter
-        for filt in observing_filters:
-            df.loc[df["optFilter"] == filt, "coma_magnitude"] = com.mag(g, filt, rap=df["seeingFwhmEff"])
+        try:
+            for filt in observing_filters:
+                df.loc[df["optFilter"] == filt, "coma_magnitude"] = com.mag(g, filt, rap=df["seeingFwhmEff"])
+        except KeyError as err:
+            self._log_exception(err)
 
         df["TrailedSourceMag"] = -2.5 * np.log10(
             10 ** (-0.4 * df["coma_magnitude"]) + 10 ** (-0.4 * df["TrailedSourceMag"])

@@ -24,9 +24,6 @@ class Comet:
 
     Parameters
     ----------
-    R : float
-        Absolute magnitude or radius (km) of the nucleus.
-
     afrho1 or afrho_q: float
         Comet coma quantity Afρ at 1 au (``afrho1``) or at perihelion
         (``afrho_q``), in units of cm.  The latter requires ``q``.
@@ -42,18 +39,13 @@ class Comet:
         returns the phase function for comae.  It is assumed that
         Phi(0) = 1.0.  Default is to use the Halley-Marcus phase
         function of Schleicher & Bair 2011.
-
-    Phi_n : function, optional
-        Same as ``Phi_c`` but for nuclei.  Default is 0.04 mag/deg.
-
     """
 
     # Willmer 2018, ApJS 236, 47
     mv_sun = -26.76  # Vega mag
     m_sun = {"u": -25.30, "g": -26.52, "r": -26.93, "i": -27.05, "z": -27.07, "y": -27.07}  # AB mag
 
-    def __init__(self, R, k=-2, afrho1=1500, **kwargs):
-        self.R = R
+    def __init__(self, k=-2, afrho1=1500, **kwargs):
         self.k = k
         self.afrho1 = afrho1
 
@@ -124,6 +116,12 @@ class Comet:
         afrho = self.afrho(g)
         rho = 725e5 * g["delta"] * rap  # arcsec to projected cm
         dm = -2.5 * np.log10(afrho * rho / (2 * g["rh"] * delta) ** 2)
-        coma = self.m_sun[bandpass] + dm
+
+        if bandpass in self.m_sun:
+            coma = self.m_sun[bandpass] + dm
+        else:
+            raise KeyError(
+                f"Unexpected bandpass provided. Expected one of ['u','g','r','i','z','y'], but was provided: {bandpass}"
+            )
 
         return coma
