@@ -14,7 +14,6 @@ Lightcurve Classes Documentation
 Activity Classes Documentation
 ------------------------------
 
-TBD
-
 .. NOTE: Please add new pages alphabetically
-.. toctree:: 
+.. toctree::
+    LSST Comet <community_modules/activity/lsst_comet>
