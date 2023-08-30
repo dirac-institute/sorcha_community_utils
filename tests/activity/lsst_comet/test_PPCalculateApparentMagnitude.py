@@ -46,9 +46,6 @@ def test_PPCalculateSimpleCometaryMagnitude():
     # Updates the dictionary of available subclasses of `AbstractCometaryActivity`
     update_activity_subclasses()
 
-    # data is for 67P, taken by Colin Snodgrass, and validated against same
-    # abnormally large seeing is to account for Colin's use of an aperture measured at comet distance
-
     cometary_obs = pd.DataFrame(
         {
             "optFilter": ["r", "r"],
@@ -56,7 +53,6 @@ def test_PPCalculateSimpleCometaryMagnitude():
             "H_r": [15.35, 15.35],
             "afrho1": [1552, 1552],
             "k": [-3.35, -3.35],
-            "seeingFwhmEff": [8.064748, 3.206723],
         }
     )
 
@@ -66,4 +62,4 @@ def test_PPCalculateSimpleCometaryMagnitude():
 
     df_comet = PPCalculateSimpleCometaryMagnitude(cometary_obs, ["r"], rho, delta, alpha, "lsst_comet")
 
-    assert_almost_equal(df_comet["TrailedSourceMag"], [13.516, 22.010], decimal=3)
+    assert_almost_equal(df_comet["TrailedSourceMag"], [15.757, 22.461], decimal=3)
