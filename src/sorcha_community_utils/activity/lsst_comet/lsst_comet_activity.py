@@ -72,7 +72,7 @@ class LSSTCometActivity(AbstractCometaryActivity):
         # this calculates the coma magnitude in each filter
         try:
             for filt in observing_filters:
-                df.loc[df["optFilter"] == filt, "coma_magnitude"] = com.mag(g, filt, rap=df["seeingFwhmEff"])
+                df.loc[df["optFilter"] == filt, "coma_magnitude"] = com.mag(g, filt, rap=1.)
         except KeyError as err:
             self._log_exception(err)
 
