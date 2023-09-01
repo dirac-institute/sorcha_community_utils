@@ -39,8 +39,8 @@ class SinusoidalLightCurve(AbstractLightCurve):
         # Verify that the input data frame contains each of the required columns.
         self._validate_column_names(df)
 
-        modtime = np.mod((df["FieldMJD"] + df["Time0"]) / df["Period"], 2 * np.pi)
-        return df["LCA"] * np.sin(modtime)
+        time = 2 * np.pi * (df["FieldMJD"] - df["Time0"])/df["Period"]
+        return df["LCA"] * np.sin(time)
 
     @staticmethod
     def name_id() -> str:
