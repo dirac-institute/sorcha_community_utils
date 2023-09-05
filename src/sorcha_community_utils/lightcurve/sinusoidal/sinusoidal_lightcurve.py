@@ -39,7 +39,7 @@ class SinusoidalLightCurve(AbstractLightCurve):
         # Verify that the input data frame contains each of the required columns.
         self._validate_column_names(df)
 
-        time = 2 * np.pi * (df["FieldMJD"] - df["Time0"])/df["Period"]
+        time = 2 * np.pi * (df["FieldMJD"] - df["Time0"]) / df["Period"]
         return df["LCA"] * np.sin(time)
 
     @staticmethod
