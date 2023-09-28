@@ -9,10 +9,10 @@ def test_sinusoidal_lightcurve_name():
 
 def test_compute_simple():
     data_dict = {
-        "FieldMJD": [1],
+        "FieldMJD": [1./4],
         "LCA": [1],
         "Period": [1],
-        "Time0": [1],
+        "Time0": [0],
     }
 
     df = pd.DataFrame.from_dict(data_dict)
@@ -20,4 +20,4 @@ def test_compute_simple():
     model = SinusoidalLightCurve()
     output = model.compute(df)
 
-    assert np.isclose(output.values[0], 0.909297)
+    assert np.isclose(output.values[0], 1)
