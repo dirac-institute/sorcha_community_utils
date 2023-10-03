@@ -11,13 +11,13 @@ class SinusoidalLightCurve(AbstractLightCurve):
     The observation dataframe provided to the ``compute``
     method should have the following columns:
 
-    * ``FieldMJD`` - time of observation.
+    * ``FieldMJD_TAI`` - time of observation.
     * ``LCA`` - lightcurve amplitude [magnitudes].
     * ``Period`` - period of the sinusoidal oscillation [days]. Should be a positive value.
     * ``Time0`` - phase for the light curve [days].
     """
 
-    def __init__(self, required_column_names: List[str] = ["FieldMJD", "LCA", "Period", "Time0"]) -> None:
+    def __init__(self, required_column_names: List[str] = ["FieldMJD_TAI", "LCA", "Period", "Time0"]) -> None:
         super().__init__(required_column_names)
 
     def compute(self, df: pd.DataFrame) -> np.array:
@@ -39,7 +39,7 @@ class SinusoidalLightCurve(AbstractLightCurve):
         # Verify that the input data frame contains each of the required columns.
         self._validate_column_names(df)
 
-        time = 2 * np.pi * (df["FieldMJD"] - df["Time0"]) / df["Period"]
+        time = 2 * np.pi * (df["FieldMJD_TAI"] - df["Time0"]) / df["Period"]
         return df["LCA"] * np.sin(time)
 
     @staticmethod
