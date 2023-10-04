@@ -15,8 +15,6 @@ Lightcurve Example Notebooks
 Activity Example Notebooks
 --------------------------
 
-TBD
-
 .. NOTE: Please add new notebooks alphabetically
 .. toctree:: 
     LSST Comet <notebooks/activity/lsst_comet/simple_cometary_magnitude>
