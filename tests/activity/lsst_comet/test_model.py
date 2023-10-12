@@ -5,7 +5,7 @@ import numpy as np
 import astropy.units as u
 from sbpy.activity import Afrho
 import synphot
-from sorcha_community_utils.activity.lsst_comet.model import Comet
+from sorcha_addons.activity.lsst_comet.model import Comet
 
 
 class TestComet:

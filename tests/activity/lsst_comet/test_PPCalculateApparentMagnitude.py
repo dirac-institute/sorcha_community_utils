@@ -5,7 +5,7 @@ import pandas as pd
 from sorcha.modules.PPCalculateSimpleCometaryMagnitude import PPCalculateSimpleCometaryMagnitude
 
 # imported so that it can be registered by `update_activity_subclasses`
-from sorcha_community_utils.activity.lsst_comet.lsst_comet_activity import LSSTCometActivity
+from sorcha_addons.activity.lsst_comet.lsst_comet_activity import LSSTCometActivity
 from sorcha.activity.activity_registration import update_activity_subclasses
 
 

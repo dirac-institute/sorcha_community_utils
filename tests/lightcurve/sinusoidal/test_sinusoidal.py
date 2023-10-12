@@ -1,4 +1,4 @@
-from sorcha_community_utils.lightcurve.sinusoidal.sinusoidal_lightcurve import SinusoidalLightCurve
+from sorcha_addons.lightcurve.sinusoidal.sinusoidal_lightcurve import SinusoidalLightCurve
 import pandas as pd
 import numpy as np
 
