@@ -6,9 +6,9 @@ virtual environment.
 
 .. code:: bash
 
-    >> pip install sorcha-community-utils
+    >> pip install sorcha-addons
 
-Once the ``sorcha-community-utils`` is installed, Sorcha will automatically detect 
+Once the ``sorcha-addons`` is installed, Sorcha will automatically detect 
 the available plugins and make them available during processing.
 
 To use one of the plugins from the community utilities, simply add the unique

@@ -1,5 +1,5 @@
 [project]
-name = "sorcha_community_utils"
+name = "sorcha_addons"
 license = {file = "LICENSE"}
 readme = "README.md"
 authors = [
@@ -49,7 +49,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-write_to = "src/sorcha_community_utils/_version.py"
+write_to = "src/sorcha_addons/_version.py"
 
 [tool.pytest.ini_options]
 testpaths = [

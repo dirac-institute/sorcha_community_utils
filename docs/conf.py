@@ -16,10 +16,10 @@ sys.path.insert(0, os.path.abspath('../src/'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "sorcha_community_utils"
+project = "sorcha_addons"
 copyright = "2023, Meg Schwamb"
 author = "Meg Schwamb"
-release = version("sorcha_community_utils")
+release = version("sorcha_addons")
 # for example take major/minor
 version = ".".join(release.split(".")[:2])
 
