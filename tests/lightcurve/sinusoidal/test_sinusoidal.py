@@ -9,7 +9,7 @@ def test_sinusoidal_lightcurve_name():
 
 def test_compute_simple():
     data_dict = {
-        "FieldMJD_TAI": [1.0 / 4],
+        "fieldMJD_TAI": [1.0 / 4],
         "LCA": [1],
         "Period": [1],
         "Time0": [0],
