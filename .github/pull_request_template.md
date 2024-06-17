@@ -7,6 +7,5 @@ Describe your changes.
 - [ ] Does pip install still work?
 - [ ] Have you written a unit test for any new functions?
 - [ ] Do all the units tests run successfully?
-- [ ] Does Sorcha/Sorcha addons run successfully on a test set of input files/databases?
+- [ ] Does Sorcha Add-ons run successfully on a test set of input files/databases?
 - [ ] Have you used black on the files you have updated to confirm python programming style guide enforcement?
-
