@@ -13,7 +13,7 @@ class LSSTCometActivity(AbstractCometaryActivity):
     method should have the following columns:
 
     * ``k`` - Dust falling exponential value (dust falling at rh^k)
-    * ``afrho1`` - Quantity of A'Hearn et al. (1984). at perihelion (cm). See notes.
+    * ``afrho1`` - Quantity of A'Hearn et al. (1984). at 1 au (cm). See notes.
     * ``optFilter`` - Observing filter of the observation
     * ``TrailedSourceMag`` - Apparent magnitude in the input filter of the comet nucleus adding up all of the counts in the trail
 
