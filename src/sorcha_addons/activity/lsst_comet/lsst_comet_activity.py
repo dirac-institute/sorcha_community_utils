@@ -25,7 +25,7 @@ class LSSTCometActivity(AbstractCometaryActivity):
     """
 
     def __init__(
-        self, required_column_names: List[str] = ["k", "afrho1", "optFilter", "TrailedSourceMag"]
+        self, required_column_names: List[str] = ["k", "afrho1", "optFilter", "trailedSourceMagTrue"]
     ) -> None:
         super().__init__(required_column_names)
 
@@ -78,8 +78,8 @@ class LSSTCometActivity(AbstractCometaryActivity):
         except KeyError as err:
             self._log_exception(err)
 
-        df["TrailedSourceMag"] = -2.5 * np.log10(
-            10 ** (-0.4 * df["coma_magnitude"]) + 10 ** (-0.4 * df["TrailedSourceMag"])
+        df["trailedSourceMagTrue"] = -2.5 * np.log10(
+            10 ** (-0.4 * df["coma_magnitude"]) + 10 ** (-0.4 * df["trailedSourceMagTrue"])
         )
 
         return df
