@@ -49,7 +49,7 @@ def test_PPCalculateSimpleCometaryMagnitude():
     cometary_obs = pd.DataFrame(
         {
             "optFilter": ["r", "r"],
-            "TrailedSourceMag": [19.676259, 22.748274],
+            "trailedSourceMagTrue": [19.676259, 22.748274],
             "H_r": [15.35, 15.35],
             "afrho1": [1552, 1552],
             "k": [-3.35, -3.35],
@@ -62,4 +62,4 @@ def test_PPCalculateSimpleCometaryMagnitude():
 
     df_comet = PPCalculateSimpleCometaryMagnitude(cometary_obs, ["r"], rho, delta, alpha, "lsst_comet")
 
-    assert_almost_equal(df_comet["TrailedSourceMag"], [15.757, 22.461], decimal=3)
+    assert_almost_equal(df_comet["trailedSourceMagTrue"], [15.757, 22.461], decimal=3)
