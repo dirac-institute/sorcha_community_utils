@@ -29,6 +29,10 @@ class LSSTCometActivity(AbstractCometaryActivity):
     ) -> None:
         super().__init__(required_column_names)
 
+    def checkPhysical(self, df : pd.DataFrame):
+        if df.k > 0:
+            raise ValueError("k > 0 is not a physical value")
+        
     def compute(
         self,
         df: pd.DataFrame,
@@ -63,6 +67,7 @@ class LSSTCometActivity(AbstractCometaryActivity):
         """
 
         self._validate_column_names(df)
+        self.checkPhysical()
 
         com = Comet(k=df.k, afrho1=df.afrho1)
 
@@ -95,3 +100,33 @@ class LSSTCometActivity(AbstractCometaryActivity):
             Unique identifier for this cometary activity model
         """
         return "lsst_comet"
+
+    def maxBrightness(self,df: pd.DataFrame,
+        observing_filters: List[str],
+        q: List[float],
+        delta: List[float],
+        alpha: List[float],
+        ):
+        
+        self._validate_column_names(df)
+        self.checkPhysical()
+
+        com = Comet(k=df.k, afrho1=df.afrho1)
+
+        # this is the geometrical data
+        g = {"rh": q, "delta": delta, "phase": alpha}
+
+        # this calculates the coma magnitude in each filter
+        try:
+            for filt in observing_filters:
+                # here rap is the aperture width, hardcoded here to 1.0 arcsec
+                # the code assumes an infinite coma so is thus only accurate for small apertures
+                df.loc[df["optFilter"] == filt, "coma_magnitude"] = com.mag(g, filt, rap=1.0)
+        except KeyError as err:
+            self._log_exception(err)
+
+        df["trailedSourceMagTrue"] = -2.5 * np.log10(
+            10 ** (-0.4 * df["coma_magnitude"]) + 10 ** (-0.4 * df["trailedSourceMagTrue"])
+        )
+
+        return df
