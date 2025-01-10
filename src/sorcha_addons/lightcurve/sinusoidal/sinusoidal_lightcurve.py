@@ -53,3 +53,6 @@ class SinusoidalLightCurve(AbstractLightCurve):
             Unique identifier for this light curve calculator
         """
         return "sinusoidal"
+
+    def maxBrightness(self, df : pd.DataFrame) -> float:
+        return -df["LCA"] #note this - because magnitudes are weird
