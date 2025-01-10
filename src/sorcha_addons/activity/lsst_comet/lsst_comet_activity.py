@@ -30,8 +30,8 @@ class LSSTCometActivity(AbstractCometaryActivity):
         super().__init__(required_column_names)
 
     def checkPhysical(self, df : pd.DataFrame):
-        if df.k > 0:
-            raise ValueError("k > 0 is not a physical value")
+        if (df.k > 0).any():
+            raise ValueError("Check complex parameters file. k > 0 is not a physical value")
         
     def compute(
         self,
@@ -67,7 +67,7 @@ class LSSTCometActivity(AbstractCometaryActivity):
         """
 
         self._validate_column_names(df)
-        self.checkPhysical()
+        self.checkPhysical(df)
 
         com = Comet(k=df.k, afrho1=df.afrho1)
 
@@ -101,7 +101,8 @@ class LSSTCometActivity(AbstractCometaryActivity):
         """
         return "lsst_comet"
 
-    def maxBrightness(self,df: pd.DataFrame,
+    def maxBrightness(self,
+        df: pd.DataFrame,
         observing_filters: List[str],
         q: List[float],
         delta: List[float],
@@ -109,7 +110,7 @@ class LSSTCometActivity(AbstractCometaryActivity):
         ):
         
         self._validate_column_names(df)
-        self.checkPhysical()
+        self.checkPhysical(df)
 
         com = Comet(k=df.k, afrho1=df.afrho1)
 
@@ -125,8 +126,8 @@ class LSSTCometActivity(AbstractCometaryActivity):
         except KeyError as err:
             self._log_exception(err)
 
-        df["trailedSourceMagTrue"] = -2.5 * np.log10(
+        brightestMag = -2.5 * np.log10(
             10 ** (-0.4 * df["coma_magnitude"]) + 10 ** (-0.4 * df["trailedSourceMagTrue"])
         )
 
-        return df
+        return brightestMag
